@@ -41,9 +41,10 @@ elseif DowntimeService.GetSiteStatus() == "degraded" then
 elseif DowntimeService:GetSiteStatus() == "up" then
     
 
-    print("All systems normal!")
+    print("Roblox website is currently up!")
 
 end
 
+wait(300)
 
 end
