@@ -185,3 +185,5 @@ function DowntimeService.GetThumbnailsAPIStatus()
 end
 
 return DowntimeService
+
+-- end
