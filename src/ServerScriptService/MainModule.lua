@@ -83,6 +83,16 @@ function DowntimeService.GetCatalogAPIStatus()
 	return Table.status -- Will return "up", "degraded" or "down"
 end
 
+function DowntimeService.GetEconomyAPIStatus()
+
+	local GetStatus = HttpService:GetAsync(sumurl)
+
+	local Data = HttpService:JSONDecode(GetStatus)
+	local Table = ReturnTableThroughSlug("economy-api-endpoint", Data)
+
+	return Table.status -- Will return "up", "degraded" or "down"
+end
+
 function DowntimeService.GetDatastoreAPIStatus()
 
 	local GetStatus = HttpService:GetAsync(sumurl)
@@ -120,6 +130,16 @@ function DowntimeService.GetGameJoinAPIStatus()
 
 	local Data = HttpService:JSONDecode(GetStatus)
 	local Table = ReturnTableThroughSlug("game-join-api-endpoint", Data)
+
+	return Table.status -- Will return "up", "degraded" or "down"
+end
+
+function DowntimeService.GetGameInternationalizationAPIStatus()
+
+	local GetStatus = HttpService:GetAsync(sumurl)
+
+	local Data = HttpService:JSONDecode(GetStatus)
+	local Table = ReturnTableThroughSlug("game-internationalization-api-endpoint", Data)
 
 	return Table.status -- Will return "up", "degraded" or "down"
 end
