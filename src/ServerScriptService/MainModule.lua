@@ -13,6 +13,19 @@ function ReturnTableThroughSlug(slug, data)
 	end
 end
 
+function CheckForTotalOutages(data)
+	if data then
+		for i, value in ipairs(data) do
+			if value["status"] == "degraded" then
+				return "degraded"
+			elseif value["status"] == "down" then
+					return "down"
+			else 
+				return "up"		
+			end
+		end
+	end
+end
 function DowntimeService.GetSiteStatus()
 
 	local GetStatus = HttpService:GetAsync(sumurl)
@@ -182,6 +195,13 @@ function DowntimeService.GetThumbnailsAPIStatus()
 	local Table = ReturnTableThroughSlug("thumbnails-api-endpoint", Data)
 
 	return Table.status -- Will return "up", "degraded" or "down"
+end
+
+function DowntimeService.GetRobloxStatus()
+	local GetStatus = HttpService:GetAsync(sumurl)
+	local Data = HttpService:JSONDecode(GetStatus)
+
+	return CheckForTotalOutages(Data)
 end
 
 return DowntimeService
