@@ -16,10 +16,10 @@ end
 function CheckForTotalOutages(data)
 	if data then
 		for i, value in ipairs(data) do
-			if value["status"] == "degraded" then
-				return "degraded"
-			elseif value["status"] == "down" then
-					return "down"
+			if value["status"] == "down" then
+				return "down"
+			elseif value["status"] == "degraded" then
+					return "degraded"
 			else 
 				return "up"		
 			end
