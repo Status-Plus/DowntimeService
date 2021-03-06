@@ -20,9 +20,9 @@ function CheckForTotalOutages(data)
 				return "down"
 			elseif value["status"] == "degraded" then
 					return "degraded"
-			else 
-				return "up"		
+				
 			end
+			return "up"
 		end
 	end
 end
