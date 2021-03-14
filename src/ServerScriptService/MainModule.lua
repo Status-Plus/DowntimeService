@@ -1,21 +1,5 @@
 local DowntimeService = {}
 
---[[
-
-▒█▀▀▄ ▒█▀▀▀█ ▒█░░▒█ ▒█▄░▒█ ▀▀█▀▀ ▀█▀ ▒█▀▄▀█ ▒█▀▀▀ ▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▒█░░▒█ ▀█▀ ▒█▀▀█ ▒█▀▀▀ 
-▒█░▒█ ▒█░░▒█ ▒█▒█▒█ ▒█▒█▒█ ░▒█░░ ▒█░ ▒█▒█▒█ ▒█▀▀▀ ░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ░▒█▒█░ ▒█░ ▒█░░░ ▒█▀▀▀ 
-▒█▄▄▀ ▒█▄▄▄█ ▒█▄▀▄█ ▒█░░▀█ ░▒█░░ ▄█▄ ▒█░░▒█ ▒█▄▄▄ ▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ░░▀▄▀░ ▄█▄ ▒█▄▄█ ▒█▄▄▄
-
-DowntimeService is a In-game API for interacting with Status+
-Read more here: devforum.roblox.com/t/status-plus/1004536
-Documentation on how to use DowntimeService: status-plus.github.io/Docs
-
-DowntimeService sends API requests to JSON endpoints on the main site. 
-The main site checks major ROBLOX endpoints every 5 minutes for outages and slowness. 
-It then returns "up", "degraded" or "down".
-
---]]
-
 local HttpService = game:GetService("HttpService")
 local sumurl = "https://raw.githubusercontent.com/Status-Plus/StatusPlus/master/history/summary.json"
 
@@ -29,18 +13,6 @@ function ReturnTableThroughSlug(slug, data)
 	end
 end
 
-function CheckForTotalOutages(data)
-	if data then
-		for i, value in ipairs(data) do
-			if value["status"] == "down" then
-				return "down"
-			elseif value["status"] == "degraded" then
-				return "degraded"
-			end
-			return "up"
-		end
-	end
-end
 function DowntimeService.GetSiteStatus()
 
 	local GetStatus = HttpService:GetAsync(sumurl)
@@ -111,16 +83,6 @@ function DowntimeService.GetCatalogAPIStatus()
 	return Table.status -- Will return "up", "degraded" or "down"
 end
 
-function DowntimeService.GetEconomyAPIStatus()
-
-	local GetStatus = HttpService:GetAsync(sumurl)
-
-	local Data = HttpService:JSONDecode(GetStatus)
-	local Table = ReturnTableThroughSlug("economy-api-endpoint", Data)
-
-	return Table.status -- Will return "up", "degraded" or "down"
-end
-
 function DowntimeService.GetDatastoreAPIStatus()
 
 	local GetStatus = HttpService:GetAsync(sumurl)
@@ -158,16 +120,6 @@ function DowntimeService.GetGameJoinAPIStatus()
 
 	local Data = HttpService:JSONDecode(GetStatus)
 	local Table = ReturnTableThroughSlug("game-join-api-endpoint", Data)
-
-	return Table.status -- Will return "up", "degraded" or "down"
-end
-
-function DowntimeService.GetGameInternationalizationAPIStatus()
-
-	local GetStatus = HttpService:GetAsync(sumurl)
-
-	local Data = HttpService:JSONDecode(GetStatus)
-	local Table = ReturnTableThroughSlug("game-internationalization-api-endpoint", Data)
 
 	return Table.status -- Will return "up", "degraded" or "down"
 end
@@ -210,13 +162,6 @@ function DowntimeService.GetThumbnailsAPIStatus()
 	local Table = ReturnTableThroughSlug("thumbnails-api-endpoint", Data)
 
 	return Table.status -- Will return "up", "degraded" or "down"
-end
-
-function DowntimeService.GetRobloxStatus() -- All sites
-	local GetStatus = HttpService:GetAsync(sumurl)
-	local Data = HttpService:JSONDecode(GetStatus)
-
-	return CheckForTotalOutages(Data) -- Will return "up", "degraded" or "down"
 end
 
 return DowntimeService
