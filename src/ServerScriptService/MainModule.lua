@@ -68,7 +68,7 @@ function DowntimeService.GetCDNAPIStatus()
 	local GetStatus = HttpService:GetAsync(sumurl)
 
 	local Data = HttpService:JSONDecode(GetStatus)
-	local Table = ReturnTableThroughSlug("roblox-s-cdn-api-endpoint", Data)
+	local Table = ReturnTableThroughSlug("cdn-api-endpoint", Data)
 
 	return Table.status -- Will return "up", "degraded" or "down"
 end
