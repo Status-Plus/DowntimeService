@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 -- Example #1: Kicking Players if Datastores are down.
 
 Players.PlayerAdded:Connect(function(player)
-	if DowntimeService:statusFromAlias("datastore")== "Down" then
+	if DowntimeService.statusFromAlias("datastore")== "Down" then
 		player:Kick("Datastores are currently down. To prevent critical errors we have kicked you. If this issue persits please contact the game owner. =")
 	end 
 end)
@@ -12,7 +12,7 @@ end)
 -- Example #2 Printing the Roblox website's status every 5 minutes. 
 
 while true do
-	local siteStatus = DowntimeService:statusFromAlias("site")
+	local siteStatus = DowntimeService.statusFromAlias("site")
 	if siteStatus == "Down" then
 		warn("Roblox Website is Currently Down! Please be patient while Roblox works on a fix! :)") 
 	elseif siteStatus == "Degraded" then
