@@ -15,9 +15,14 @@ end)
 
 -- Example #2 Printing the Roblox website's status every 5 minutes. 
 
-local RunService = game:GetService("RunService")
-
-while RunService.Heartbeat:Wait() do
+local debounce = false
+game:GetService('RunService').Heartbeat:Connect(function()
+	if debounce then return end
+	coroutine.wrap(function()
+		debounce = true
+		task.wait(300) -- 300 seconds so 5 minutes.
+		debounce = false
+	end)()
 	local siteStatus = DowntimeService.statusFromAlias("site"):lower()
 	if siteStatus == "down" then
 		warn("Roblox Website is Currently Down! Please be patient while Roblox works on a fix! :)") 
@@ -26,5 +31,4 @@ while RunService.Heartbeat:Wait() do
 	elseif siteStatus == "up" then
 		print("Roblox website is currently up!")
 	end
-	wait(300)
-end
+end)
