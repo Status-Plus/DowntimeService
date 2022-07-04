@@ -1,26 +1,34 @@
 local DowntimeService = require(6317978171) -- Or require by using the file path. (Requiring by ID is better for quicker updates.)
 local Players = game:GetService("Players")
 
--- Example #1: Kicking Players if Datastores are down.
+-- Example #1: Kicking Players if Datastores are down and the variable is set to true.
+
+local kickPlayers = true
 
 Players.PlayerAdded:Connect(function(player)
-    if DowntimeService:GetDatastoreAPIStatus() == "down" then
-        player:Kick("Datastores are currently down. To prevent critical errors we have kicked you. If this issue persits please contact the game owner. =")
-    end 
+	if DowntimeService.statusFromAlias("datastore"):lower() == "down" then
+		if kickPlayers then
+				player:Kick("Datastores are currently down. To prevent critical errors we have kicked you. If this issue persits please contact the game owner. =)")
+		end
+	end 
 end)
 
--- Example #2 Printing latest tests if something is down or not. 
+-- Example #2 Printing the Roblox website's status every 5 minutes. 
 
-while true do
-    
-if DowntimeService:GetSiteStatus() == "down" then
-
-   warn("Roblox Website is Currently Down! Please be patient while Roblox works on a fix! :)") 
-
-elseif DowntimeService.GetSiteStatus() == "degraded" then
-    print("Roblox Website is Currently slow! Please be patient while Roblox works on it! :)")
-elseif DowntimeService:GetSiteStatus() == "up" then
-    print("Roblox website is currently up!")
-end
-wait(300)
-end
+local debounce = false
+game:GetService('RunService').Heartbeat:Connect(function()
+	if debounce then return end
+	coroutine.wrap(function()
+		debounce = true
+		task.wait(300) -- 300 seconds so 5 minutes.
+		debounce = false
+	end)()
+	local siteStatus = DowntimeService.statusFromAlias("site"):lower()
+	if siteStatus == "down" then
+		warn("Roblox Website is Currently Down! Please be patient while Roblox works on a fix! :)") 
+	elseif siteStatus == "degraded" then
+		print("Roblox Website is Currently slow! Please be patient while Roblox works on it! :)")
+	elseif siteStatus == "up" then
+		print("Roblox website is currently up!")
+	end
+end)
