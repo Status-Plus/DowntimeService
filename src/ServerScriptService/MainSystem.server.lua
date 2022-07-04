@@ -8,7 +8,7 @@ local kickPlayers = true
 Players.PlayerAdded:Connect(function(player)
 	if DowntimeService.statusFromAlias("datastore"):lower() == "down" then
 		if kickPlayers then
-				player:Kick("Datastores are currently down. To prevent critical errors we have kicked you. If this issue persits please contact the game owner. =")
+				player:Kick("Datastores are currently down. To prevent critical errors we have kicked you. If this issue persits please contact the game owner. =)")
 		end
 	end 
 end)
