@@ -1,16 +1,6 @@
 {
-  "name": "DowntimeService Development",
+  "name": "DowntimeService",
   "tree": {
-    "$className": "DataModel",
-
-    "ServerScriptService": {
-      "$className": "ServerScriptService",
-  
-      "GameFiles": {
-        "$className": "Folder",
-        "$path": "src/ServerScriptService"
-      }
-    }
-
+    "$path": "lib"
   }
 }

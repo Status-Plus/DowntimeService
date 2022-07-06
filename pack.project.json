@@ -1,0 +1,12 @@
+{
+    "name": "DowntimeService",
+    "tree": {
+      "$path": "Include/Linking.lua",
+      "Packages": {
+        "$path": "Packages",
+        "roxios": {
+            "$path": "lib"
+        }        
+      }
+    }
+  }

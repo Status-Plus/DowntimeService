@@ -1,0 +1,10 @@
+[package]
+name = "statusplus/downtimeservice"
+version = "2.0.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+license = "MIT"
+
+
+[dependencies]
+roxios = "fxllencode/roxios@1.1.8"
